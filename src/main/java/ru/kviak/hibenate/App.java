@@ -20,13 +20,16 @@ public class App
         try {
             session.beginTransaction();
 
-            Person person = session.get(Person.class, 1);
-            System.out.println(person.getName());
-            System.out.println(person.getAge());
+            Person person1 = new Person("Kviak", 30);
+            Person person2 = new Person("Kviak", 30);
+            Person person3 = new Person("Kviak", 30);
+
+            session.persist(person1);
+            session.persist(person2);
+            session.persist(person3);
 
             session.getTransaction().commit();
-        }
-       finally {
+        } finally {
             sessionFactory.close();
         }
     }
