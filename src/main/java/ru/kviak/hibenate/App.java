@@ -5,10 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.kviak.hibenate.model.Person;
 
-/**
- * Hello world!
- *
- */
+import java.util.List;
+
 public class App 
 {
     public static void main( String[] args ) {
@@ -20,15 +18,12 @@ public class App
         try {
             session.beginTransaction();
 
-            Person person1 = new Person("Kviak", 30);
-            Person person2 = new Person("Kviak", 30);
-            Person person3 = new Person("Kviak", 30);
-
-            session.persist(person1);
-            session.persist(person2);
-            session.persist(person3);
+            session.createMutationQuery("delete from Person where age<20")
+                    .executeUpdate();
 
             session.getTransaction().commit();
+
+//            System.out.println(person1.getId());
         } finally {
             sessionFactory.close();
         }
