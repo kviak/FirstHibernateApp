@@ -2,8 +2,10 @@ package ru.kviak.hibenate.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name="Person")
+@Table(name = "Person")
 public class Person {
     @Id
     @Column(name = "id")
@@ -14,7 +16,18 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    public Person() {}
+    @OneToMany(mappedBy = "owner")
+    private List<Item> itemList;
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
+    public Person(){}
 
     public Person(String name, int age) {
         this.name = name;
@@ -46,7 +59,11 @@ public class Person {
     }
 
     @Override
-    public String toString(){
-        return this.name + " " + this.age;
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
